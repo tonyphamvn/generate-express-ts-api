@@ -1,19 +1,18 @@
 import express from 'express';
-import authRoutes from '@/routes/auth.routes';
-import userRoutes from '@/routes/users.routes';
+import authRoutes from '@/modules/auth/auth.routes';
+import usersRoutes from '@/modules/users/users.routes';
 
 const router = express.Router();
 
-router.get('/', function (_req, res, _next) {
+router.get('/', function (_req, res) {
   res.redirect('/health-check');
 });
 
-/* Health check */
-router.get('/health-check', function (_req, res, _next) {
+router.get('/health-check', function (_req, res) {
   res.send('APIs OK!');
 });
 
 router.use('/auth', authRoutes);
-router.use('/user', userRoutes);
+router.use('/users', usersRoutes);
 
 export default router;

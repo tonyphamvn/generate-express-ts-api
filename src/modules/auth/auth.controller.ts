@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { responseSuccess } from '@/helpers/response';
+import { responseSuccess } from '@/shared/response';
 import AuthService from '@/modules/auth/auth.service';
-import { BadRequestError } from '@/commons/http-errors';
+import { BadRequestError } from '@/shared/errors';
+
 class AuthController {
   private authService: AuthService;
 
@@ -19,4 +20,5 @@ class AuthController {
     return responseSuccess(res, data);
   };
 }
+
 export default AuthController;

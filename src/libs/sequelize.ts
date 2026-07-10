@@ -10,4 +10,6 @@ export default new Sequelize(database.database, database.username, database.pass
   host: database.host,
   port: database.port,
   pool: database.pool,
+  logging: database.logging,
+  timezone: database.timezone,
 });

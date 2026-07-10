@@ -12,6 +12,7 @@ export default {
     409: 'Conflict',
     422: 'Unprocessable Entity',
     500: 'Internal Server Error',
+    502: 'Bad Gateway',
     544: 'Unknown HTTP Error',
   },
   auth: {

@@ -1,8 +1,8 @@
-import { AuthResponse, UserModel, UserStatic } from '@/interfaces/user';
-import { generateToken } from '@/libs/passports';
+import { AuthResponse, UserModel, UserStatic } from '@/types/user.types';
+import { generateToken } from '@/libs/passport';
 import userModel from '@/models/user.model';
 import Bcrypt from '@/libs/bcrypt';
-import { EntityNotFoundError } from '@/commons/http-errors';
+import { EntityNotFoundError } from '@/shared/errors';
 
 class AuthService {
   private userModel: UserStatic;
@@ -21,14 +21,14 @@ class AuthService {
     return { token };
   }
 
-  private async checkAuthenticated(email: string, password: string): Promise<UserModel> {
+  private async checkAuthenticated(email: string, password: string): Promise<UserModel | null> {
     const user = await this.userModel.findOne({ where: { email } });
-    if (!user) {
-      return undefined;
-    }
-    const compare = await Bcrypt.comparePassword(password, user.password);
-    if (!compare) {
-      return undefined;
+
+    if (user?.password) {
+      const compare = await Bcrypt.comparePassword(password, user.password);
+      if (!compare) {
+        return null;
+      }
     }
 
     return user;

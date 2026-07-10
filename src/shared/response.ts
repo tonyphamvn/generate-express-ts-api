@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import httpStatus from 'http-status';
-import messages from '@/commons/messages';
+import messages from '@/shared/messages';
 
 export function responseError(res: Response, message: string = messages.generalMessage.Error) {
   res.json({ success: false, message });

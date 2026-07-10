@@ -2,30 +2,25 @@ import express, { Application } from 'express';
 import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
-import RequestLogger from '@/helpers/logger';
+import passport from 'passport';
+import RequestLogger from '@/shared/logger';
 import { Environment } from '@config';
 import indexRouter from '@/routes/index';
 import { errorHandler } from '@/middlewares/errorHandler';
-import requestValidationHandler from '@/helpers/requestValidationHandler';
-import SocketServer from '@/libs/socket';
+import requestValidationHandler from '@/shared/request-validation-handler';
+import { configurePassport } from '@/libs/passport';
 
 class App {
   private app: Application;
   public port: number;
   public apiPrefix = '/api/v1';
 
-  constructor(appInit: {
-    port: number;
-    socketPort: number;
-    redisUri: string;
-    redisPort: number;
-    middleWares: any;
-  }) {
+  constructor(appInit: { port: number; middleWares: any[] }) {
     this.app = express();
     this.port = appInit.port;
     this.assets();
     this.middleWares(appInit.middleWares);
-    // this.connectSocket(appInit.socketPort, appInit.redisUri, appInit.redisPort);
+    this.initPassport();
     this.initRoutes();
     this.handleError();
   }
@@ -39,10 +34,15 @@ class App {
     }
   }
 
-  private middleWares(middleWares: { forEach: (arg0: (middleWare: any) => void) => void }) {
+  private middleWares(middleWares: any[]) {
     middleWares.forEach((middleWare) => {
       this.app.use(middleWare);
     });
+  }
+
+  private initPassport() {
+    configurePassport(passport);
+    this.app.use(passport.initialize());
   }
 
   private initRoutes() {
@@ -50,7 +50,6 @@ class App {
   }
 
   private handleError() {
-    // Handle common errors
     if (process.env.NODE_ENV === Environment.Development) {
       this.app.use(RequestLogger());
     }
@@ -60,14 +59,10 @@ class App {
 
   public listen() {
     this.app.listen(this.port, () => {
-      if (process.env.NODE_ENV !== 'production') {
+      if (process.env.NODE_ENV !== Environment.Production) {
         console.log('Server is listening at port', this.port);
       }
     });
-  }
-
-  private connectSocket(port: number, redisUri: string, redisPort: number) {
-    new SocketServer(port, redisUri, redisPort).createServer();
   }
 }
 

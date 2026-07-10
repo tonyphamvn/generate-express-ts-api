@@ -1,16 +1,16 @@
 import passportJWT from 'passport-jwt';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { PassportStatic } from 'passport';
-import env from '@config';
-import { UserAttributes } from '@/interfaces/user';
+import config from '@config';
+import { UserAttributes } from '@/types/user.types';
 import UserModel from '@/models/user.model';
 
 const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;
 
-export function passportConfiguration(passport: PassportStatic) {
+export function configurePassport(passport: PassportStatic) {
   const opts: passportJWT.StrategyOptions = {
-    secretOrKey: env.jwtSecret,
+    secretOrKey: config.jwtSecret as string,
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
   };
 
@@ -31,8 +31,8 @@ export function passportConfiguration(passport: PassportStatic) {
 
 export function generateToken(user: UserAttributes): string {
   const options: SignOptions = {
-    expiresIn: (env.jwtExpiresIn ?? '1d') as SignOptions['expiresIn'],
+    expiresIn: (config.jwtExpiresIn ?? '1d') as SignOptions['expiresIn'],
   };
 
-  return jwt.sign({ id: user.id, email: user.email }, env.jwtSecret as string, options);
+  return jwt.sign({ id: user.id, email: user.email }, config.jwtSecret as string, options);
 }

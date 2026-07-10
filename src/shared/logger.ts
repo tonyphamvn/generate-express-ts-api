@@ -18,7 +18,6 @@ const createLoggerForEnv = (environment: string) => {
         transports: [new winston.transports.Console()],
       });
       logger.level = 'debug';
-
       break;
 
     case Environment.Test:
@@ -39,6 +38,11 @@ const createLoggerForEnv = (environment: string) => {
           format: combine(timestamp(), simple(), align()),
         }),
       );
+      break;
+    default:
+      logger = winston.createLogger({
+        transports: [new winston.transports.Console()],
+      });
       break;
   }
   return logger;

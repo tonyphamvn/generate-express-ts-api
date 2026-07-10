@@ -3,10 +3,7 @@ import cookieParser from 'cookie-parser';
 import App from '@/app';
 
 const app = new App({
-  port: parseInt(process.env.PORT || '4000'),
-  socketPort: parseInt(process.env.SOCKET_PORT),
-  redisUri: process.env.REDIS_URI,
-  redisPort: parseInt(process.env.REDIS_PORT),
+  port: parseInt(process.env.PORT || '4000', 10),
   middleWares: [
     bodyParser.json(),
     cookieParser(),
