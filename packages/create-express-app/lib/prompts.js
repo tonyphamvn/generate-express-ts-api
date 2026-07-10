@@ -29,7 +29,7 @@ export async function collectProjectOptions(argvOptions) {
     };
   }
 
-  p.intro('create-express-ts-app');
+  p.intro('generate-express-ts-starter');
 
   const projectName = handleCancel(
     await p.text({

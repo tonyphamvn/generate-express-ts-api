@@ -124,8 +124,7 @@ function parseArgs(argv) {
 function printHelp() {
   console.log(`
 Usage:
-  npx create-express-ts-app [project-name] [options]
-  npm create express-ts-app [project-name] [options]
+  npx generate-express-ts-starter [project-name] [options]
 
 Options:
   --yes, -y                 Use defaults (non-interactive)
@@ -141,10 +140,9 @@ Options:
   -h, --help                Show help
 
 Examples:
-  npx create-express-ts-app
-  npx create-express-ts-app my-api --yes
-  npx create-express-ts-app my-api --yes --database mysql --no-jwt
-  npm create express-ts-app my-api
+  npx generate-express-ts-starter
+  npx generate-express-ts-starter my-api --yes
+  npx generate-express-ts-starter my-api --yes --database mysql --no-jwt
   node packages/create-express-app/bin/create-express-app.js my-api --local --yes
 `);
 }
