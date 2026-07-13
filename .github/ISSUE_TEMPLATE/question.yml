@@ -1,0 +1,65 @@
+name: Question
+description: Ask a question about using generate-express-ts-api or a generated project
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask anything about the CLI, scaffolding options, or the generated Express API. Check the README and CHANGELOG first if you can.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Topic
+      options:
+        - CLI / scaffolding
+        - Generated Express API
+        - Docker / deploy
+        - Database / MikroORM
+        - Auth / JWT
+        - Socket.IO
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+      description: What do you want to know?
+      placeholder: How do I … ?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What you already tried, relevant config, or the goal you are aiming for.
+      placeholder: |
+        I ran `npx generate-express-ts-api my-api --deploy pm2` and want to …
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Package / template version
+      description: Optional, but helpful for version-specific answers.
+      placeholder: 0.0.2
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Optional. Fill in if the question depends on your setup.
+      value: |
+        - OS:
+        - Node.js:
+        - Deploy mode: docker / pm2 / none
+    validations:
+      required: false

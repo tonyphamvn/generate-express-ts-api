@@ -1,0 +1,84 @@
+name: Proposal
+description: Propose a new feature, improvement, or change
+title: "[Proposal]: "
+labels: ["proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share an idea for improve `generate-express-ts-api` or the generated template. Focus on the problem and the intended outcome.
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Proposal type
+      options:
+        - New feature
+        - Enhancement
+        - Breaking change
+        - Documentation
+        - DX / tooling
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CLI / scaffolding
+        - Generated Express API
+        - Docker / deploy
+        - Database / MikroORM
+        - Auth / JWT
+        - Socket.IO
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / motivation
+      description: What problem does this solve? Who is affected?
+      placeholder: Today, when I … it is hard to …
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you want. Include CLI flags, APIs, or file layout if relevant.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you thought about, and why this one is better.
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Expected effects on existing projects, migrations, or defaults.
+      value: |
+        - Breaking change?: Yes / No
+        - Affects generated projects?: Yes / No
+        - Migration needed?: Yes / No
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional context
+      description: Examples, mocks, related issues, or prior art from other generators.
+    validations:
+      required: false
