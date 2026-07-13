@@ -33,7 +33,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tonyphamvn/express-ts-boilerplate.git",
+    "url": "git+https://github.com/tonyphamvn/generate-express-ts-starter.git",
     "directory": "packages/create-express-app"
   },
   "dependencies": {
