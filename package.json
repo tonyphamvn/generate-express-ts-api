@@ -2,6 +2,7 @@
   "name": "generate-express-ts-starter",
   "version": "0.0.2",
   "private": true,
+  "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   },
