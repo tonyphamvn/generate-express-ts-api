@@ -2,13 +2,29 @@ import { AuthResponse, UserModel, UserStatic } from '@/types/user.types';
 import { generateToken } from '@/libs/passport';
 import userModel from '@/models/user.model';
 import Bcrypt from '@/libs/bcrypt';
-import { EntityNotFoundError } from '@/shared/errors';
+import { ConflictError, EntityNotFoundError } from '@/shared/errors';
+import messages from '@/shared/messages';
 
 class AuthService {
   private userModel: UserStatic;
 
   constructor() {
     this.userModel = userModel;
+  }
+
+  public async register(email: string, password: string): Promise<AuthResponse> {
+    const existing = await this.userModel.findOne({ where: { email } });
+
+    if (existing) {
+      throw new ConflictError(messages.auth.userExists);
+    }
+
+    const user = await this.userModel.create({
+      email,
+      password: await Bcrypt.generateHashPassword(password),
+    });
+
+    return { token: generateToken(user) };
   }
 
   public async login(email: string, password: string): Promise<AuthResponse> {

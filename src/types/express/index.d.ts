@@ -1,8 +1,10 @@
-import { UserStatic } from '@/types/user.types';
+/* eslint-disable no-unused-vars */
+import { UserAttributes } from '../user.types';
 
-// eslint-disable-next-line no-unused-vars
-declare namespace Express {
-  export interface Request {
-    user?: UserStatic;
+declare global {
+  namespace Express {
+    interface User extends UserAttributes {}
   }
 }
+
+export {};

@@ -2,9 +2,27 @@ import { AuthResponse, UserAttributes } from '@/types/user.types';
 import { generateToken } from '@/libs/passport';
 import prisma from '@/libs/prisma';
 import Bcrypt from '@/libs/bcrypt';
-import { EntityNotFoundError } from '@/shared/errors';
+import { ConflictError, EntityNotFoundError } from '@/shared/errors';
+import messages from '@/shared/messages';
 
 class AuthService {
+  public async register(email: string, password: string): Promise<AuthResponse> {
+    const existing = await prisma.user.findUnique({ where: { email } });
+
+    if (existing) {
+      throw new ConflictError(messages.auth.userExists);
+    }
+
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: await Bcrypt.generateHashPassword(password),
+      },
+    });
+
+    return { token: generateToken(user) };
+  }
+
   public async login(email: string, password: string): Promise<AuthResponse> {
     const user = await this.checkAuthenticated(email, password);
     if (!user) {

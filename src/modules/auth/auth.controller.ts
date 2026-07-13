@@ -10,6 +10,12 @@ class AuthController {
     this.authService = new AuthService();
   }
 
+  public register = async (req: Request, res: Response, _next: NextFunction) => {
+    const { email, password } = req.body;
+    const data = await this.authService.register(email, password);
+    return responseSuccess(res, data);
+  };
+
   public login = async (req: Request, res: Response, _next: NextFunction) => {
     const { email, password } = req.body;
 

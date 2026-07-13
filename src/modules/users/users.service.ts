@@ -1,5 +1,6 @@
 import { getEM } from '@/libs/mikro-orm';
 import { User } from '@/entities/User';
+import { EntityNotFoundError } from '@/shared/errors';
 
 class UsersService {
   public async listUsers() {
@@ -10,6 +11,22 @@ class UsersService {
         fields: ['id', 'email', 'createdAt', 'updatedAt'],
       },
     );
+  }
+
+  public async getMe(userId: number) {
+    const user = await getEM().findOne(
+      User,
+      { id: userId },
+      {
+        fields: ['id', 'email', 'createdAt', 'updatedAt'],
+      },
+    );
+
+    if (!user) {
+      throw new EntityNotFoundError();
+    }
+
+    return user;
   }
 }
 
