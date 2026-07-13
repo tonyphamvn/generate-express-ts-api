@@ -17,6 +17,7 @@ export async function collectProjectOptions(argvOptions) {
   if (argvOptions.yes) {
     return {
       projectName: argvOptions.projectName,
+      orm: argvOptions.orm,
       database: argvOptions.database,
       jwt: argvOptions.jwt,
       docker: argvOptions.docker,
@@ -43,6 +44,19 @@ export async function collectProjectOptions(argvOptions) {
         }
         return undefined;
       },
+    }),
+  );
+
+  const orm = handleCancel(
+    await p.select({
+      message: 'ORM',
+      initialValue: argvOptions.orm || 'mikroorm',
+      options: [
+        { value: 'mikroorm', label: 'MikroORM', hint: 'default' },
+        { value: 'sequelize', label: 'Sequelize' },
+        { value: 'prisma', label: 'Prisma' },
+        { value: 'typeorm', label: 'TypeORM' },
+      ],
     }),
   );
 
@@ -113,6 +127,7 @@ export async function collectProjectOptions(argvOptions) {
 
   return {
     projectName,
+    orm,
     database,
     jwt,
     docker,

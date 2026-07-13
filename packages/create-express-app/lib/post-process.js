@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { applyDatabaseFeature } from './features/database.js';
+import { applyOrmFeature } from './features/orm.js';
 import { removeAuthFeature } from './features/auth.js';
 import { removeDockerFeature } from './features/docker.js';
 import { removeRedisFeature } from './features/redis.js';
@@ -15,7 +16,8 @@ async function removeIfExists(targetPath) {
 export async function postProcessProject(targetDir, options) {
   await removeIfExists(path.join(targetDir, 'packages'));
 
-  await applyDatabaseFeature(targetDir, options.database);
+  await applyOrmFeature(targetDir, options.orm, options.database);
+  await applyDatabaseFeature(targetDir, options.database, options.orm);
 
   if (!options.jwt) {
     await removeAuthFeature(targetDir);

@@ -1,7 +1,6 @@
 import { AuthResponse, UserAttributes } from '@/types/user.types';
 import { generateToken } from '@/libs/passport';
-import { getEM } from '@/libs/mikroorm';
-import { User } from '@/entities/User';
+import prisma from '@/libs/prisma';
 import Bcrypt from '@/libs/bcrypt';
 import { EntityNotFoundError } from '@/shared/errors';
 
@@ -20,7 +19,7 @@ class AuthService {
     email: string,
     password: string,
   ): Promise<UserAttributes | null> {
-    const user = await getEM().findOne(User, { email });
+    const user = await prisma.user.findUnique({ where: { email } });
 
     if (user?.password) {
       const compare = await Bcrypt.comparePassword(password, user.password);

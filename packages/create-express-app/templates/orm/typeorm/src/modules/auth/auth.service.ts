@@ -1,7 +1,7 @@
 import { AuthResponse, UserAttributes } from '@/types/user.types';
 import { generateToken } from '@/libs/passport';
-import { getEM } from '@/libs/mikroorm';
-import { User } from '@/entities/User';
+import { AppDataSource } from '@/libs/typeorm';
+import { User } from '@/entities/user.entity';
 import Bcrypt from '@/libs/bcrypt';
 import { EntityNotFoundError } from '@/shared/errors';
 
@@ -20,7 +20,7 @@ class AuthService {
     email: string,
     password: string,
   ): Promise<UserAttributes | null> {
-    const user = await getEM().findOne(User, { email });
+    const user = await AppDataSource.getRepository(User).findOneBy({ email });
 
     if (user?.password) {
       const compare = await Bcrypt.comparePassword(password, user.password);

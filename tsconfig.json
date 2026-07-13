@@ -19,6 +19,8 @@
       "@config/*": ["./src/config/*"]
     },
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "skipLibCheck": true
   },
   "include": ["src/**/*"]

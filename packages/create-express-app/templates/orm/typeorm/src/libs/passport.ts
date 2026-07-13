@@ -3,8 +3,8 @@ import jwt, { SignOptions } from 'jsonwebtoken';
 import { PassportStatic } from 'passport';
 import config from '@config';
 import { UserAttributes } from '@/types/user.types';
-import { getEM } from '@/libs/mikroorm';
-import { User } from '@/entities/User';
+import { AppDataSource } from '@/libs/typeorm';
+import { User } from '@/entities/user.entity';
 
 const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;
@@ -17,7 +17,9 @@ export function configurePassport(passport: PassportStatic) {
 
   passport.use(
     new JwtStrategy(opts, async (jwtPayload, cb) => {
-      const user = await getEM().findOne(User, { id: jwtPayload.id });
+      const user = await AppDataSource.getRepository(User).findOneBy({
+        id: jwtPayload.id,
+      });
 
       if (user) {
         cb(null, user);

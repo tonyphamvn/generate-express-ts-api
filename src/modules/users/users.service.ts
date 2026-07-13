@@ -1,17 +1,15 @@
-import userModel from '@/models/user.model';
-import { UserStatic } from '@/types/user.types';
+import { getEM } from '@/libs/mikroorm';
+import { User } from '@/entities/User';
 
 class UsersService {
-  private userModel: UserStatic;
-
-  constructor() {
-    this.userModel = userModel;
-  }
-
   public async listUsers() {
-    return this.userModel.findAll({
-      attributes: ['id', 'email', 'createdAt', 'updatedAt'],
-    });
+    return getEM().find(
+      User,
+      {},
+      {
+        fields: ['id', 'email', 'createdAt', 'updatedAt'],
+      },
+    );
   }
 }
 

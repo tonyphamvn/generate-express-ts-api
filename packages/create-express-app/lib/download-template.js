@@ -1,7 +1,6 @@
 import degit from 'degit';
 import { downloadTemplate } from 'giget';
 import { DEFAULT_GIGET_TEMPLATE, DEFAULT_TEMPLATE_REPO } from './constants.js';
-import { copyLocalTemplate } from './copy-template.js';
 
 function normalizeDegitSource(template) {
   if (template.startsWith('degit:')) {

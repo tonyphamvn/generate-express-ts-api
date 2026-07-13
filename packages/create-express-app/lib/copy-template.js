@@ -11,7 +11,11 @@ async function exists(targetPath) {
   }
 }
 
-async function copyRecursive(source, destination) {
+async function copyRecursive(source, destination, skipPath) {
+  if (skipPath && path.resolve(source) === path.resolve(skipPath)) {
+    return;
+  }
+
   const stats = await fs.stat(source);
 
   if (stats.isDirectory()) {
@@ -24,7 +28,7 @@ async function copyRecursive(source, destination) {
 
     await Promise.all(
       entries.map((entry) =>
-        copyRecursive(path.join(source, entry), path.join(destination, entry)),
+        copyRecursive(path.join(source, entry), path.join(destination, entry), skipPath),
       ),
     );
     return;
@@ -38,7 +42,7 @@ async function copyRecursive(source, destination) {
 }
 
 export async function copyLocalTemplate(templateRoot, targetDir) {
-  await copyRecursive(templateRoot, targetDir);
+  await copyRecursive(templateRoot, targetDir, targetDir);
 }
 
 export async function assertTargetIsEmpty(targetDir) {

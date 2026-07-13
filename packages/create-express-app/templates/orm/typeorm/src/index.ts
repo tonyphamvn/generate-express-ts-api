@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import App from '@/app';
-import { initializeDatabase } from '@/libs/mikroorm';
+import { initializeDatabase } from '@/libs/typeorm';
 
 async function bootstrap() {
   await initializeDatabase();

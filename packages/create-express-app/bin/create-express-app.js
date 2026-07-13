@@ -19,6 +19,7 @@ const DEFAULT_OPTIONS = {
   local: false,
   template: DEFAULT_TEMPLATE_REPO,
   provider: 'degit',
+  orm: 'mikroorm',
   database: 'postgres',
   jwt: true,
   docker: true,
@@ -38,84 +39,44 @@ function parseArgs(argv) {
 
     if (arg === '--help' || arg === '-h') {
       options.help = true;
-      continue;
-    }
-
-    if (arg === '--yes' || arg === '-y') {
+    } else if (arg === '--yes' || arg === '-y') {
       options.yes = true;
-      continue;
-    }
-
-    if (arg === '--local') {
+    } else if (arg === '--local') {
       options.local = true;
-      continue;
-    }
-
-    if (arg === '--git') {
+    } else if (arg === '--git') {
       options.git = true;
-      continue;
-    }
-
-    if (arg === '--no-git') {
+    } else if (arg === '--no-git') {
       options.git = false;
-      continue;
-    }
-
-    if (arg === '--jwt') {
+    } else if (arg === '--jwt') {
       options.jwt = true;
-      continue;
-    }
-
-    if (arg === '--no-jwt') {
+    } else if (arg === '--no-jwt') {
       options.jwt = false;
-      continue;
-    }
-
-    if (arg === '--docker') {
+    } else if (arg === '--docker') {
       options.docker = true;
-      continue;
-    }
-
-    if (arg === '--no-docker') {
+    } else if (arg === '--no-docker') {
       options.docker = false;
-      continue;
-    }
-
-    if (arg === '--redis') {
+    } else if (arg === '--redis') {
       options.redis = true;
-      continue;
-    }
-
-    if (arg === '--no-redis') {
+    } else if (arg === '--no-redis') {
       options.redis = false;
-      continue;
-    }
-
-    if (arg === '--template') {
+    } else if (arg === '--template') {
       options.template = argv[index + 1];
       index += 1;
-      continue;
-    }
-
-    if (arg === '--provider') {
+    } else if (arg === '--provider') {
       options.provider = argv[index + 1];
       index += 1;
-      continue;
-    }
-
-    if (arg === '--database') {
+    } else if (arg === '--orm') {
+      options.orm = argv[index + 1];
+      index += 1;
+    } else if (arg === '--database') {
       options.database = argv[index + 1];
       index += 1;
-      continue;
-    }
-
-    if (arg === '--package-manager') {
+    } else if (arg === '--package-manager') {
       options.packageManager = argv[index + 1];
       index += 1;
-      continue;
+    } else {
+      positionals.push(arg);
     }
-
-    positionals.push(arg);
   }
 
   return { options, projectName: positionals[0] };
@@ -128,6 +89,7 @@ Usage:
 
 Options:
   --yes, -y                 Use defaults (non-interactive)
+  --orm <name>              sequelize | prisma | typeorm | mikroorm (default: mikroorm)
   --database <type>         postgres | mysql | sqlite
   --jwt / --no-jwt          Include JWT auth module
   --docker / --no-docker    Include Docker files
@@ -142,8 +104,8 @@ Options:
 Examples:
   npx generate-express-ts-starter
   npx generate-express-ts-starter my-api --yes
-  npx generate-express-ts-starter my-api --yes --database mysql --no-jwt
-  node packages/create-express-app/bin/create-express-app.js my-api --local --yes
+  npx generate-express-ts-starter my-api --yes --orm prisma --database mysql
+  node packages/create-express-app/bin/create-express-app.js my-api --local --yes --orm typeorm
 `);
 }
 
@@ -188,6 +150,7 @@ async function main() {
     ? await collectProjectOptions({ ...argvOptions, projectName: argvProjectName })
     : {
         projectName: argvProjectName,
+        orm: argvOptions.orm,
         database: argvOptions.database,
         jwt: argvOptions.jwt,
         docker: argvOptions.docker,
@@ -221,7 +184,11 @@ async function main() {
   }
 
   await postProcessProject(targetDir, options);
-  printNextSteps(options.projectName, options);
+
+  // Print after open handles (e.g. degit) drain so "Done" appears right before exit
+  process.once('beforeExit', () => {
+    printNextSteps(options.projectName, options);
+  });
 }
 
 main().catch((error) => {
