@@ -192,6 +192,10 @@ Your environment will have everything you need to build a modern Express API:
 - Migration scripts (`db:migrate`, `migration:generate`)
 - Winston logging and ESLint/Prettier baseline
 
+## Contributing
+
+Issues and PRs are welcome. To release the CLI package, see [`packages/create-express-app/README.md`](packages/create-express-app/README.md#releasing).
+
 ## License
 
 MIT

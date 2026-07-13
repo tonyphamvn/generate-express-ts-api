@@ -1,0 +1,77 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/create-express-app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: packages/create-express-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Smoke test CLI
+        run: node bin/create-express-app.js --help
+
+      - name: Verify package contents
+        run: |
+          test -d bin
+          test -d lib
+          test -d templates
+          test -f README.md
+          test -f package.json
+          node -e "const pkg=require('./package.json'); if(pkg.name!=='generate-express-ts-starter') process.exit(1)"
+
+      - name: Verify tag matches package version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          TAG_VERSION="${GITHUB_REF#refs/tags/v}"
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          echo "tag=$TAG_VERSION package=$PKG_VERSION"
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "Tag version ($TAG_VERSION) does not match package.json ($PKG_VERSION)"
+            exit 1
+          fi
+
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          body: |
+            ## npm
+
+            ```bash
+            npx generate-express-ts-starter my-api
+            ```
+
+            Package: [`generate-express-ts-starter@${{ github.ref_name }}`](https://www.npmjs.com/package/generate-express-ts-starter)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

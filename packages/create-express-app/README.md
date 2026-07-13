@@ -190,7 +190,26 @@ The tradeoff is that **these tools are preconfigured to work together**. You can
 
 ## Contributing
 
-Issues and PRs are welcome in the [express-template](https://github.com/lamtungp/express-template) repository.
+Issues and PRs are welcome in the [generate-express-ts-starter](https://github.com/tonyphamvn/generate-express-ts-starter) repository.
+
+## Releasing
+
+1. Bump `version` in `packages/create-express-app/package.json`.
+2. Commit the change.
+3. Tag and push:
+
+```sh
+git tag v0.0.2
+git push origin v0.0.2
+```
+
+The [Release](../../.github/workflows/release.yml) workflow will:
+
+- smoke-test the CLI
+- publish `generate-express-ts-starter` to npm
+- create a GitHub Release with notes
+
+Requires `NPM_TOKEN` (or npm Trusted Publishing configured for workflow file `release.yml`).
 
 ## License
 
