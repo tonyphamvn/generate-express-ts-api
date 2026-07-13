@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: packages/create-express-app
+        working-directory: packages/generate-express-ts-api
 
     steps:
       - name: Checkout
@@ -27,13 +27,13 @@ jobs:
           node-version: '20'
           registry-url: https://registry.npmjs.org
           cache: npm
-          cache-dependency-path: packages/create-express-app/package-lock.json
+          cache-dependency-path: packages/generate-express-ts-api/package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
       - name: Smoke test CLI
-        run: node bin/create-express-app.js --help
+        run: node bin/generate-express-ts-api.js --help
 
       - name: Verify package contents
         run: |
@@ -42,7 +42,7 @@ jobs:
           test -d templates
           test -f README.md
           test -f package.json
-          node -e "const pkg=require('./package.json'); if(pkg.name!=='generate-express-ts-starter') process.exit(1)"
+          node -e "const pkg=require('./package.json'); if(pkg.name!=='generate-express-ts-api') process.exit(1)"
 
       - name: Verify tag matches package version
         if: startsWith(github.ref, 'refs/tags/')
@@ -69,9 +69,9 @@ jobs:
             ## npm
 
             ```bash
-            npx generate-express-ts-starter my-api
+            npx generate-express-ts-api my-api
             ```
 
-            Package: [`generate-express-ts-starter@${{ github.ref_name }}`](https://www.npmjs.com/package/generate-express-ts-starter)
+            Package: [`generate-express-ts-api@${{ github.ref_name }}`](https://www.npmjs.com/package/generate-express-ts-api)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

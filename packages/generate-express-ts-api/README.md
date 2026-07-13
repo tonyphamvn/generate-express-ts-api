@@ -1,4 +1,4 @@
-## Generate Express TS Starter
+## Generate Express TS API
 
 Scaffold an Express + TypeScript API with one command.
 
@@ -11,7 +11,7 @@ Works on macOS, Windows, and Linux.
 ## Quick Overview
 
 ```sh
-npx generate-express-ts-starter my-api
+npx generate-express-ts-api my-api
 cd my-api
 npm install
 docker compose up -d
@@ -41,13 +41,13 @@ To create a new app, run:
 ### npx
 
 ```sh
-npx generate-express-ts-starter my-api
+npx generate-express-ts-api my-api
 ```
 
 ### npm
 
 ```sh
-npm init generate-express-ts-starter my-api
+npm init generate-express-ts-api my-api
 ```
 
 _`npm init <initializer>` is available in npm 6+_
@@ -55,7 +55,7 @@ _`npm init <initializer>` is available in npm 6+_
 ### Yarn
 
 ```sh
-yarn create generate-express-ts-starter my-api
+yarn create generate-express-ts-api my-api
 ```
 
 It will create a directory called `my-api` inside the current folder.<br>
@@ -64,14 +64,14 @@ Inside that directory, it will generate the project structure (default: **MikroO
 With prompts skipped:
 
 ```sh
-npx generate-express-ts-starter my-api --yes
+npx generate-express-ts-api my-api --yes
 ```
 
 Customize during scaffold:
 
 ```sh
-npx generate-express-ts-starter my-api --yes --orm prisma --database mysql
-npx generate-express-ts-starter my-api --yes --orm typeorm --no-jwt --no-docker
+npx generate-express-ts-api my-api --yes --orm prisma --database mysql
+npx generate-express-ts-api my-api --yes --orm typeorm --no-jwt --no-docker
 ```
 
 #### Options
@@ -190,11 +190,11 @@ The tradeoff is that **these tools are preconfigured to work together**. You can
 
 ## Contributing
 
-Issues and PRs are welcome in the [generate-express-ts-starter](https://github.com/tonyphamvn/generate-express-ts-starter) repository.
+Issues and PRs are welcome in the [generate-express-ts-api](https://github.com/tonyphamvn/generate-express-ts-api) repository.
 
 ## Releasing
 
-1. Bump `version` in `packages/create-express-app/package.json`.
+1. Bump `version` in `packages/generate-express-ts-api/package.json`.
 2. Commit the change.
 3. Tag and push:
 
@@ -206,7 +206,7 @@ git push origin v0.0.2
 The [Release](../../.github/workflows/release.yml) workflow will:
 
 - smoke-test the CLI
-- publish `generate-express-ts-starter` to npm
+- publish `generate-express-ts-api` to npm
 - create a GitHub Release with notes
 
 Requires `NPM_TOKEN` (or npm Trusted Publishing configured for workflow file `release.yml`).

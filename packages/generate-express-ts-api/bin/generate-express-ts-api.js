@@ -87,7 +87,7 @@ function parseArgs(argv) {
 function printHelp() {
   console.log(`
 Usage:
-  npx generate-express-ts-starter [project-name] [options]
+  npx generate-express-ts-api [project-name] [options]
 
 Options:
   --yes, -y                 Use defaults (non-interactive)
@@ -104,10 +104,10 @@ Options:
   -h, --help                Show help
 
 Examples:
-  npx generate-express-ts-starter
-  npx generate-express-ts-starter my-api --yes
-  npx generate-express-ts-starter my-api --yes --orm prisma --database mysql
-  node packages/create-express-app/bin/create-express-app.js my-api --local --yes --orm typeorm
+  npx generate-express-ts-api
+  npx generate-express-ts-api my-api --yes
+  npx generate-express-ts-api my-api --yes --orm prisma --database mysql
+  node packages/generate-express-ts-api/bin/generate-express-ts-api.js my-api --local --yes --orm typeorm
 `);
 }
 

@@ -30,7 +30,7 @@ export async function collectProjectOptions(argvOptions) {
     };
   }
 
-  p.intro('generate-express-ts-starter');
+  p.intro('generate-express-ts-api');
 
   const projectName = handleCancel(
     await p.text({

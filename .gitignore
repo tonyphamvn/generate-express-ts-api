@@ -26,8 +26,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-packages/create-express-app/node_modules
-packages/create-express-app/test-*
+packages/generate-express-ts-api/node_modules
+packages/generate-express-ts-api/test-*
 test-scaffold
 
 src/database/migrations/*.json

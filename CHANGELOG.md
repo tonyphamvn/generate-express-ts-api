@@ -5,18 +5,18 @@ Generate Express TS Starter 0.0.2 adds multi-ORM scaffolding, auth APIs (`regist
 # Migrating from 0.0.1 to 0.0.2
 
 ```bash
-npx generate-express-ts-starter@0.0.2 my-api
+npx generate-express-ts-api@0.0.2 my-api
 ```
 
 Or upgrade an existing global/local install:
 
 ```bash
-npm install -g generate-express-ts-starter@0.0.2
+npm install -g generate-express-ts-api@0.0.2
 ```
 
 #### 🚀 New Feature
 
-* `generate-express-ts-starter`
+* `generate-express-ts-api`
   * Add `--orm` option: `mikroorm` (default) | `sequelize` | `prisma` | `typeorm`
   * Keep `--database` orthogonal: `postgres` | `mysql` | `sqlite`
   * Ship ORM overlays under `templates/orm/*`
@@ -29,7 +29,7 @@ npm install -g generate-express-ts-starter@0.0.2
 
 #### 🐛 Bug Fix
 
-* `generate-express-ts-starter`
+* `generate-express-ts-api`
   * Pin `figlet@1.7.0` to fix MikroORM CLI crash on Node 24
   * Fix local template copy recursion when scaffolding inside the repo
 * Template
@@ -51,7 +51,7 @@ npm install -g generate-express-ts-starter@0.0.2
 
 #### 🏠 Internal
 
-* Rename package to `generate-express-ts-starter`
+* Rename package to `generate-express-ts-api`
 * Replace legacy publish workflow with unified `release.yml`
 * Enable `publishConfig.provenance`
 
@@ -61,15 +61,15 @@ npm install -g generate-express-ts-starter@0.0.2
 
 ## 0.0.1 (2026-07-10)
 
-Initial release of **generate-express-ts-starter**: an Express + TypeScript API template with Sequelize, plus a CLI to scaffold new projects.
+Initial release of **generate-express-ts-api**: an Express + TypeScript API template with Sequelize, plus a CLI to scaffold new projects.
 
 ```bash
-npx generate-express-ts-starter@0.0.1 my-api
+npx generate-express-ts-api@0.0.1 my-api
 ```
 
 #### 🚀 New Feature
 
-* `generate-express-ts-starter`
+* `generate-express-ts-api`
   * Scaffold Express + TypeScript projects from the template
   * Interactive prompts via `@clack/prompts`, or `--yes` for defaults
   * Options: `--database` (`postgres` | `mysql` | `sqlite`), `--jwt` / `--no-jwt`, `--docker` / `--no-docker`, `--redis` / `--no-redis`, `--git` / `--no-git`, `--package-manager`, `--provider` (`degit` | `giget`), `--template`, `--local`

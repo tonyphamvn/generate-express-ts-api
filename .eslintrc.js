@@ -22,12 +22,12 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['packages/create-express-app/**/*.js'],
+      files: ['packages/generate-express-ts-api/**/*.js'],
       rules: {
         'import/no-extraneous-dependencies': [
           'error',
           {
-            packageDir: ['./packages/create-express-app'],
+            packageDir: ['./packages/generate-express-ts-api'],
           },
         ],
       },

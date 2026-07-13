@@ -1,11 +1,11 @@
 {
-  "name": "generate-express-ts-starter",
-  "version": "0.0.2",
+  "name": "generate-express-ts-api",
+  "version": "0.0.1",
   "description": "Scaffold an Express + TypeScript API from the express-template boilerplate",
   "license": "MIT",
   "type": "module",
   "bin": {
-    "generate-express-ts-starter": "./bin/create-express-app.js"
+    "generate-express-ts-api": "./bin/generate-express-ts-api.js"
   },
   "files": [
     "bin",
@@ -30,12 +30,12 @@
     "typeorm",
     "sequelize",
     "postgres",
-    "generate-express-ts-starter"
+    "generate-express-ts-api"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tonyphamvn/generate-express-ts-starter.git",
-    "directory": "packages/create-express-app"
+    "url": "git+https://github.com/tonyphamvn/generate-express-ts-api.git",
+    "directory": "packages/generate-express-ts-api"
   },
   "dependencies": {
     "@clack/prompts": "^0.10.1",

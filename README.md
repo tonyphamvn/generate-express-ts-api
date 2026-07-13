@@ -9,14 +9,14 @@ Scaffold and ship an Express + TypeScript API with one command.
 This repository contains:
 
 1. The **API template** (default: MikroORM + PostgreSQL)
-2. The **`generate-express-ts-starter`** npm package under `packages/create-express-app`
+2. The **`generate-express-ts-api`** npm package under `packages/generate-express-ts-api`
 
-Create Express TS apps with no manual ORM/auth/Docker wiring.
+Generate Express TS apps with no manual ORM/auth/Docker wiring.
 
 ## Quick Overview
 
 ```sh
-npx generate-express-ts-starter my-api
+npx generate-express-ts-api my-api
 cd my-api
 npm install
 docker compose up -d
@@ -46,13 +46,13 @@ To create a new app, you may choose one of the following methods:
 ### npx
 
 ```sh
-npx generate-express-ts-starter my-api
+npx generate-express-ts-api my-api
 ```
 
 ### npm
 
 ```sh
-npm init generate-express-ts-starter my-api
+npm init generate-express-ts-api my-api
 ```
 
 _`npm init <initializer>` is available in npm 6+_
@@ -60,7 +60,7 @@ _`npm init <initializer>` is available in npm 6+_
 ### Yarn
 
 ```sh
-yarn create generate-express-ts-starter my-api
+yarn create generate-express-ts-api my-api
 ```
 
 It will create a directory called `my-api` inside the current folder.<br>
@@ -69,17 +69,17 @@ Inside that directory, it will generate the initial project structure.
 Skip interactive prompts with defaults (MikroORM, PostgreSQL, JWT, Docker):
 
 ```sh
-npx generate-express-ts-starter my-api --yes
+npx generate-express-ts-api my-api --yes
 ```
 
 Or customize:
 
 ```sh
-npx generate-express-ts-starter my-api --yes --orm prisma --database mysql
-npx generate-express-ts-starter my-api --yes --orm typeorm --no-jwt --no-docker
+npx generate-express-ts-api my-api --yes --orm prisma --database mysql
+npx generate-express-ts-api my-api --yes --orm typeorm --no-jwt --no-docker
 ```
 
-See full CLI docs in [`packages/create-express-app/README.md`](packages/create-express-app/README.md).
+See full CLI docs in [`packages/generate-express-ts-api/README.md`](packages/generate-express-ts-api/README.md).
 
 Once generation is done, open your project folder:
 
@@ -169,7 +169,7 @@ npm run dev
 Test the CLI against this checkout:
 
 ```sh
-node packages/create-express-app/bin/create-express-app.js my-api --local --yes
+node packages/generate-express-ts-api/bin/generate-express-ts-api.js my-api --local --yes
 ```
 
 ## Philosophy
@@ -194,7 +194,7 @@ Your environment will have everything you need to build a modern Express API:
 
 ## Contributing
 
-Issues and PRs are welcome. To release the CLI package, see [`packages/create-express-app/README.md`](packages/create-express-app/README.md#releasing).
+Issues and PRs are welcome. To release the CLI package, see [`packages/generate-express-ts-api/README.md`](packages/generate-express-ts-api/README.md#releasing).
 
 ## License
 
