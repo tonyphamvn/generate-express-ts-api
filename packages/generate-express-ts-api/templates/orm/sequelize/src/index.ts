@@ -1,13 +1,13 @@
-import bodyParser from 'body-parser';
+import express from 'express';
 import cookieParser from 'cookie-parser';
 import App from '@/app';
 
 const app = new App({
   port: parseInt(process.env.PORT || '4000', 10),
   middleWares: [
-    bodyParser.json(),
+    express.json(),
     cookieParser(),
-    bodyParser.urlencoded({ extended: true, limit: '5m' }),
+    express.urlencoded({ extended: true, limit: '5m' }),
   ],
 });
 

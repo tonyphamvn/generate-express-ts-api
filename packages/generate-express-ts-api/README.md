@@ -76,17 +76,17 @@ npx generate-express-ts-api my-api --yes --orm typeorm --no-jwt --no-docker
 
 #### Options
 
-| Option | Description | Default |
-| --- | --- | --- |
-| `--yes`, `-y` | Skip prompts and use defaults | off |
-| `--orm <name>` | `mikroorm` \| `sequelize` \| `prisma` \| `typeorm` | `mikroorm` |
-| `--database <type>` | `postgres` \| `mysql` \| `sqlite` | `postgres` |
-| `--jwt` / `--no-jwt` | Include JWT auth module | on |
-| `--docker` / `--no-docker` | Include Docker files | on |
-| `--redis` / `--no-redis` | Include Redis + Socket.IO deps | off |
-| `--git` / `--no-git` | Initialize a git repository | on |
-| `--package-manager <pm>` | `npm` \| `pnpm` \| `yarn` \| `bun` | `npm` |
-| `-h`, `--help` | Show help | |
+| Option                     | Description                                        | Default    |
+| -------------------------- | -------------------------------------------------- | ---------- |
+| `--yes`, `-y`              | Skip prompts and use defaults                      | off        |
+| `--orm <name>`             | `mikroorm` \| `sequelize` \| `prisma` \| `typeorm` | `mikroorm` |
+| `--database <type>`        | `postgres` \| `mysql` \| `sqlite`                  | `postgres` |
+| `--jwt` / `--no-jwt`       | Include JWT auth module                            | on         |
+| `--docker` / `--no-docker` | Include Docker files                               | on         |
+| `--redis` / `--no-redis`   | Include Redis + Socket.IO deps                     | off        |
+| `--git` / `--no-git`       | Initialize a git repository                        | on         |
+| `--package-manager <pm>`   | `npm` \| `pnpm` \| `yarn` \| `bun`                 | `npm`      |
+| `-h`, `--help`             | Show help                                          |            |
 
 A typical generated project looks like this (MikroORM default):
 
@@ -176,7 +176,7 @@ Runs ESLint on `src`.
 
 Your environment will have everything you need to build a modern Express API:
 
-- Express 4 + TypeScript
+- Express 5 + TypeScript
 - MikroORM by default (or Sequelize / Prisma / TypeORM)
 - PostgreSQL, MySQL, or SQLite
 - Optional JWT auth (Passport + bcrypt)

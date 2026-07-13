@@ -4,7 +4,7 @@ import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
 import passport from 'passport';
-import RequestLogger from '@/shared/logger';
+import RequestLogger, { logger } from '@/shared/logger';
 import { Environment } from '@config';
 import indexRouter from '@/routes/index';
 import { errorHandler } from '@/middlewares/errorHandler';
@@ -67,7 +67,7 @@ class App {
     await new Promise<void>((resolve) => {
       server.listen(this.port, () => {
         if (process.env.NODE_ENV !== Environment.Production) {
-          console.log('Server is listening at port', this.port);
+          logger.info(`Server is listening at port ${this.port}`);
         }
         resolve();
       });

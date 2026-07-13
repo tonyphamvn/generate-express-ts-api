@@ -3,6 +3,7 @@ import { Server, Socket } from 'socket.io';
 import { createAdapter } from '@socket.io/redis-adapter';
 import { createClient } from 'redis';
 import { Environment } from '@config';
+import { logger } from '@/shared/logger';
 
 let io: Server | null = null;
 
@@ -25,14 +26,14 @@ function buildRedisUrl(): string {
 function registerHandlers(server: Server) {
   server.on('connection', (socket: Socket) => {
     if (process.env.NODE_ENV !== Environment.Production) {
-      console.log(`Socket connected: ${socket.id}`);
+      logger.info(`Socket connected: ${socket.id}`);
     }
 
     // Register domain events here, e.g. socket.on('chat:message', ...)
 
     socket.on('disconnect', (reason) => {
       if (process.env.NODE_ENV !== Environment.Production) {
-        console.log(`Socket disconnected: ${socket.id} (${reason})`);
+        logger.info(`Socket disconnected: ${socket.id} (${reason})`);
       }
     });
   });

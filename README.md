@@ -183,7 +183,7 @@ node packages/generate-express-ts-api/bin/generate-express-ts-api.js my-api --lo
 
 Your environment will have everything you need to build a modern Express API:
 
-- Express 4 + TypeScript
+- Express 5 + TypeScript
 - MikroORM by default (overlays for Sequelize, Prisma, TypeORM)
 - PostgreSQL / MySQL / SQLite
 - Optional JWT auth (Passport + bcrypt)
