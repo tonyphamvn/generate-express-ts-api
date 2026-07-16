@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { MikroORM } from '@mikro-orm/postgresql';
 import config from '@config';
-import { User } from '@/entities/User';
+import { User } from '@/infrastructure/database/entities/User';
 
 const { database } = config;
 
@@ -24,7 +24,7 @@ export async function initializeDatabase() {
     password: isSqlite ? undefined : database.password,
     debug: Boolean(database.logging),
     migrations: {
-      path: `${__dirname}/../database/migrations`,
+      path: `${__dirname}/migrations`,
     },
   });
 

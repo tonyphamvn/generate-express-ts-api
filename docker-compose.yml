@@ -22,9 +22,9 @@ services:
       PGDATA: /var/lib/postgresql/data
     volumes:
       - pg_data:/var/lib/postgresql/data
-      - ./scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+      - ./src/scripts/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DB_MAIN_USER} -d ${DB_NAME_DEV}']
+      test: ['CMD-SHELL', 'pg_isready -U ${DB_MAIN_USER} -d ${DB_MAIN_NAME}']
       interval: 1m30s
       timeout: 30s
       retries: 5

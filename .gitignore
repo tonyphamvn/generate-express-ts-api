@@ -30,4 +30,4 @@ packages/generate-express-ts-api/node_modules
 packages/generate-express-ts-api/test-*
 test-scaffold
 
-src/database/migrations/*.json
+src/infrastructure/database/migrations/*.json

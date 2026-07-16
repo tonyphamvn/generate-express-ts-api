@@ -35,13 +35,10 @@ const poolConfig = {
 };
 
 function resolveDatabaseName(env: AppEnvironment): string {
-  if (env === Environment.Production) {
-    return process.env.DB_NAME_PROD || process.env.DB_MAIN_NAME || 'dbprod';
-  }
   if (env === Environment.Test) {
-    return process.env.DB_NAME_TEST || 'dbtest';
+    return process.env.DB_TEST_NAME || 'db_test';
   }
-  return process.env.DB_NAME_DEV || process.env.DB_MAIN_NAME || 'dbdev';
+  return process.env.DB_MAIN_NAME || 'db_main';
 }
 
 function buildDatabaseConfig(env: AppEnvironment): DatabaseConfig {

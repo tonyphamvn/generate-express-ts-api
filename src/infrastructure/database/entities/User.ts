@@ -12,8 +12,8 @@ export class User {
   password!: string;
 
   @Property({ fieldName: 'createdAt' })
-  createdAt: Date = new Date();
+  createdAt?: Date = new Date();
 
   @Property({ fieldName: 'updatedAt', onUpdate: () => new Date() })
-  updatedAt: Date = new Date();
+  updatedAt?: Date = new Date();
 }

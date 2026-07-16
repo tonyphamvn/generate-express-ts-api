@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import UsersService from '@/modules/users/users.service';
+import UsersService from './users.service';
 import { responseSuccess } from '@/shared/response';
 import { UnauthorizedError } from '@/shared/errors';
 

@@ -5,10 +5,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const MIKRO_PATHS = [
-  'src/libs/mikro-orm.ts',
-  'src/entities',
+  'src/infrastructure/database/mikro-orm.ts',
+  'src/infrastructure/database/entities',
   'mikro-orm.config.ts',
-  'src/database/migrations',
+  'src/infrastructure/database/migrations',
 ];
 
 async function removeIfExists(targetPath) {
@@ -168,7 +168,7 @@ export class AddTableUser20220225111250 implements MigrationInterface {
 }
 
 async function writeMikroMigration(targetDir, database) {
-  const migrationsDir = path.join(targetDir, 'src/database/migrations');
+  const migrationsDir = path.join(targetDir, 'src/infrastructure/database/migrations');
   await fs.mkdir(migrationsDir, { recursive: true });
   await fs.writeFile(
     path.join(migrationsDir, 'Migration20220225111250.ts'),
@@ -280,7 +280,7 @@ async function applyTypeormDialect(targetDir, database) {
 async function applyMikroDialect(targetDir, database) {
   const driver = mikroDriver(database);
 
-  await patchFile(targetDir, 'src/libs/mikro-orm.ts', (content) =>
+  await patchFile(targetDir, 'src/infrastructure/database/mikro-orm.ts', (content) =>
     content.replace(/from '@mikro-orm\/[^']+'/g, `from '${driver}'`),
   );
   await patchFile(targetDir, 'mikro-orm.config.ts', (content) =>

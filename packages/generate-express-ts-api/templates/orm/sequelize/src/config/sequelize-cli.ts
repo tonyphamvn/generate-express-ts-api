@@ -5,13 +5,10 @@ import { Environment } from '@/config';
 dotenv.config();
 
 function resolveDatabaseName(env: string) {
-  if (env === Environment.Production) {
-    return process.env.DB_NAME_PROD || process.env.DB_MAIN_NAME;
-  }
   if (env === Environment.Test) {
-    return process.env.DB_NAME_TEST;
+    return process.env.DB_TEST_NAME;
   }
-  return process.env.DB_NAME_DEV || process.env.DB_MAIN_NAME;
+  return process.env.DB_MAIN_NAME;
 }
 
 function buildEnvConfig(env: string) {

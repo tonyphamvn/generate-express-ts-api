@@ -1,25 +1,21 @@
-import { AuthResponse, UserAttributes } from '@/types/user.types';
-import { generateToken } from '@/libs/passport';
-import { getEM } from '@/libs/mikro-orm';
-import { User } from '@/entities/User';
-import Bcrypt from '@/libs/bcrypt';
+import { AuthResponse } from '@/modules/auth/auth.dto';
+import { UserAttributes } from '@/modules/users/users.dto';
+import { generateToken } from '@/infrastructure/auth/passport';
+import Bcrypt from '@/infrastructure/auth/bcrypt';
 import { ConflictError, EntityNotFoundError } from '@/shared/errors';
 import messages from '@/shared/messages';
+import { getEM } from '@/infrastructure/database/mikro-orm';
+import { User } from '@/infrastructure/database/entities/User';
 
 class AuthService {
   public async register(email: string, password: string): Promise<AuthResponse> {
-    const em = getEM();
-    const existing = await em.findOne(User, { email });
+    const existing = await this.findByEmail(email);
 
     if (existing) {
       throw new ConflictError(messages.auth.userExists);
     }
 
-    const user = em.create(User, {
-      email,
-      password: await Bcrypt.generateHashPassword(password),
-    });
-    await em.persist(user).flush();
+    const user = await this.createUser(email, await Bcrypt.generateHashPassword(password));
 
     return { token: generateToken(user) };
   }
@@ -38,7 +34,7 @@ class AuthService {
     email: string,
     password: string,
   ): Promise<UserAttributes | null> {
-    const user = await getEM().findOne(User, { email });
+    const user = await this.findByEmail(email);
 
     if (user?.password) {
       const compare = await Bcrypt.comparePassword(password, user.password);
@@ -47,6 +43,20 @@ class AuthService {
       }
     }
 
+    return user;
+  }
+
+  private async findByEmail(email: string): Promise<User | null> {
+    return getEM().findOne(User, { email });
+  }
+
+  private async createUser(email: string, hashedPassword: string): Promise<User> {
+    const em = getEM();
+    const user = em.create(User, {
+      email,
+      password: hashedPassword,
+    });
+    await em.persist(user).flush();
     return user;
   }
 }

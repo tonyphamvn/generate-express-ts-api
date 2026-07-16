@@ -13,20 +13,19 @@ async function patchFile(targetDir, relativePath, replacer) {
 
 export async function removeAuthFeature(targetDir) {
   await removeIfExists(path.join(targetDir, 'src/modules/auth'));
-  await removeIfExists(path.join(targetDir, 'src/libs/passport.ts'));
-  await removeIfExists(path.join(targetDir, 'src/libs/bcrypt.ts'));
+  await removeIfExists(path.join(targetDir, 'src/infrastructure/auth'));
 
-  await patchFile(targetDir, 'src/app.ts', (content) =>
+  await patchFile(targetDir, 'src/bootstrap/app.ts', (content) =>
     content
       .replace("import passport from 'passport';\n", '')
-      .replace("import { configurePassport } from '@/libs/passport';\n", '')
+      .replace("import { configurePassport } from '@/infrastructure/auth/passport';\n", '')
       .replace('    this.initPassport();\n', '')
       .replace(/ {2}private initPassport\(\) \{[\s\S]*? {2}\}\n\n/, ''),
   );
 
-  await patchFile(targetDir, 'src/routes/index.ts', (content) =>
+  await patchFile(targetDir, 'src/bootstrap/routes.ts', (content) =>
     content
-      .replace("import authRoutes from '@/modules/auth/auth.routes';\n", '')
+      .replace("import authRoutes from '@/modules/auth/routes';\n", '')
       .replace("router.use('/auth', authRoutes);\n", ''),
   );
 }

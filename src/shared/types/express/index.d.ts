@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { UserAttributes } from '../user.types';
+import { UserAttributes } from '@/modules/users/users.dto';
 
 declare global {
   namespace Express {

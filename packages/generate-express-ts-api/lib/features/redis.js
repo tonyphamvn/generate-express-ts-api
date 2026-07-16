@@ -12,12 +12,12 @@ async function patchFile(targetDir, relativePath, replacer) {
 }
 
 export async function removeRedisFeature(targetDir) {
-  await removeIfExists(path.join(targetDir, 'src/libs/socket.ts'));
+  await removeIfExists(path.join(targetDir, 'src/infrastructure/socket.ts'));
 
-  await patchFile(targetDir, 'src/app.ts', (content) =>
+  await patchFile(targetDir, 'src/bootstrap/app.ts', (content) =>
     content
       .replace("import http from 'http';\n", '')
-      .replace("import { initSocket } from '@/libs/socket';\n", '')
+      .replace("import { initSocket } from '@/infrastructure/socket';\n", '')
       .replace(
         `  public async listen() {
     const server = http.createServer(this.app);
@@ -27,7 +27,7 @@ export async function removeRedisFeature(targetDir) {
     await new Promise<void>((resolve) => {
       server.listen(this.port, () => {
         if (process.env.NODE_ENV !== Environment.Production) {
-          console.log('Server is listening at port', this.port);
+          logger.info(\`Server is listening at port \${this.port}\`);
         }
         resolve();
       });
@@ -37,7 +37,7 @@ export async function removeRedisFeature(targetDir) {
         `  public listen() {
     this.app.listen(this.port, () => {
       if (process.env.NODE_ENV !== Environment.Production) {
-        console.log('Server is listening at port', this.port);
+        logger.info(\`Server is listening at port \${this.port}\`);
       }
     });
   }
@@ -45,7 +45,7 @@ export async function removeRedisFeature(targetDir) {
       ),
   );
 
-  await patchFile(targetDir, 'src/index.ts', (content) =>
+  await patchFile(targetDir, 'src/bootstrap/index.ts', (content) =>
     content.replace('  await app.listen();\n', '  app.listen();\n'),
   );
 

@@ -1,4 +1,4 @@
-export const DEFAULT_TEMPLATE_REPO = 'lamtungp/express-template';
+export const DEFAULT_TEMPLATE_REPO = 'tonyphamvn/generate-express-ts-api';
 export const DEFAULT_GIGET_TEMPLATE = `github:${DEFAULT_TEMPLATE_REPO}`;
 
 export const EXCLUDE_DIRS = new Set([

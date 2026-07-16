@@ -8,7 +8,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
-    "typeRoots": ["src/types", "./node_modules/@types"],
+    "typeRoots": ["src/shared/types", "./node_modules/@types"],
     "strictFunctionTypes": true,
     "strictBindCallApply": true,
     "noImplicitThis": true,

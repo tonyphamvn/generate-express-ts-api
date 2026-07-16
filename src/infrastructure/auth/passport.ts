@@ -2,9 +2,9 @@ import passportJWT from 'passport-jwt';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { PassportStatic } from 'passport';
 import config from '@config';
-import { UserAttributes } from '@/types/user.types';
-import { getEM } from '@/libs/mikro-orm';
-import { User } from '@/entities/User';
+import { UserAttributes } from '@/modules/users/users.dto';
+import { getEM } from '@/infrastructure/database/mikro-orm';
+import { User } from '@/infrastructure/database/entities/User';
 
 const { ExtractJwt } = passportJWT;
 const JwtStrategy = passportJWT.Strategy;

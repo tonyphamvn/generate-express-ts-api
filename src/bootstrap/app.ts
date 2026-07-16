@@ -6,11 +6,11 @@ import helmet from 'helmet';
 import passport from 'passport';
 import RequestLogger, { logger } from '@/shared/logger';
 import { Environment } from '@config';
-import indexRouter from '@/routes/index';
-import { errorHandler } from '@/middlewares/errorHandler';
-import requestValidationHandler from '@/shared/request-validation-handler';
-import { configurePassport } from '@/libs/passport';
-import { initSocket } from '@/libs/socket';
+import indexRouter from '@/bootstrap/routes';
+import { errorHandler } from '@/shared/middlewares/error-handler';
+import requestValidation from '@/shared/request-validation';
+import { configurePassport } from '@/infrastructure/auth/passport';
+import { initSocket } from '@/infrastructure/socket';
 
 class App {
   private app: Application;
@@ -55,7 +55,7 @@ class App {
     if (process.env.NODE_ENV === Environment.Development) {
       this.app.use(RequestLogger());
     }
-    this.app.use(requestValidationHandler);
+    this.app.use(requestValidation);
     this.app.use(errorHandler);
   }
 

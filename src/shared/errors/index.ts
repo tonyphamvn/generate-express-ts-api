@@ -6,4 +6,4 @@ export {
   EntityNotFoundError,
   ConflictError,
   BadGatewayError,
-} from '@/shared/errors/http-error';
+} from './http-error';

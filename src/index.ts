@@ -1,23 +1,4 @@
-import 'reflect-metadata';
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import App from '@/app';
-import { initializeDatabase } from '@/libs/mikro-orm';
-
-async function bootstrap() {
-  await initializeDatabase();
-
-  const app = new App({
-    port: parseInt(process.env.PORT || '4000', 10),
-    middlewares: [
-      express.json(),
-      cookieParser(),
-      express.urlencoded({ extended: true, limit: '5m' }),
-    ],
-  });
-
-  await app.listen();
-}
+import { bootstrap } from '@/bootstrap';
 
 bootstrap().catch((error) => {
   console.error(error);

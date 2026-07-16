@@ -21,7 +21,7 @@ const MYSQL_DOCKER = `services:
       MYSQL_ROOT_PASSWORD: \${DB_MAIN_PASSWORD}
       MYSQL_USER: \${DB_MAIN_USER}
       MYSQL_PASSWORD: \${DB_MAIN_PASSWORD}
-      MYSQL_DATABASE: \${DB_NAME_DEV}
+      MYSQL_DATABASE: \${DB_MAIN_NAME}
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
@@ -164,9 +164,8 @@ export default new Sequelize({
       .replace(/DB_MAIN_PORT=.*\n/g, '')
       .replace(/DB_MAIN_USER=.*\n/g, '')
       .replace(/DB_MAIN_PASSWORD=.*\n/g, '')
-      .replace(/DB_NAME_DEV=.*\n/g, '')
-      .replace(/DB_NAME_TEST=.*\n/g, '')
-      .replace(/DB_NAME_PROD=.*\n/g, '')
+      .replace(/DB_MAIN_NAME=.*\n/g, '')
+      .replace(/DB_TEST_NAME=.*\n/g, '')
       .concat('DB_STORAGE=./database/dev.sqlite\n'),
   );
 }
