@@ -104,22 +104,30 @@ my-api
 ├── .env
 ├── .env.example
 └── src
-    ├── app.ts
     ├── index.ts
+    ├── bootstrap/
+    │   ├── app.ts
+    │   ├── index.ts
+    │   └── routes.ts
     ├── config/
-    ├── entities/
-    ├── libs/
+    ├── infrastructure/
+    │   ├── auth/
+    │   ├── database/
+    │   │   ├── entities/
+    │   │   └── migrations/
+    │   └── socket.ts
     ├── modules/
     │   ├── auth/
     │   └── users/
-    ├── database/
-    │   └── migrations/
-    ├── middlewares/
-    ├── routes/
-    └── shared/
+    ├── scripts/
+    ├── shared/
+    │   ├── errors/
+    │   ├── middlewares/
+    │   └── types/
+    └── tests/
 ```
 
-No complicated setup — only the files you need to build an API.<br>
+The template keeps bootstrapping, domain modules, infrastructure adapters, and shared utilities separate so the project can grow without moving files around immediately.<br>
 Once generation is done:
 
 ```sh
@@ -162,7 +170,7 @@ Compiles TypeScript to the `dist` folder.
 
 ### `npm start`
 
-Runs the compiled app with PM2 (`dist`).
+Runs the compiled production build from `dist`. If the app was generated with `--deploy pm2`, the generated start command uses PM2 runtime.
 
 ### `npm run lint`
 
@@ -203,8 +211,8 @@ Issues and PRs are welcome in the [generate-express-ts-api](https://github.com/t
 3. Tag and push:
 
 ```sh
-git tag v0.0.2
-git push origin v0.0.2
+git tag v0.0.3
+git push origin v0.0.3
 ```
 
 The [Release](../../.github/workflows/release.yml) workflow will:

@@ -106,22 +106,30 @@ my-api
 ├── .env
 ├── .env.example
 └── src
-    ├── app.ts
     ├── index.ts
+    ├── bootstrap/
+    │   ├── app.ts
+    │   ├── index.ts
+    │   └── routes.ts
     ├── config/
-    ├── entities/
-    ├── libs/
+    ├── infrastructure/
+    │   ├── auth/
+    │   ├── database/
+    │   │   ├── entities/
+    │   │   └── migrations/
+    │   └── socket.ts
     ├── modules/
     │   ├── auth/
     │   └── users/
-    ├── database/
-    │   └── migrations/
-    ├── middlewares/
-    ├── routes/
-    └── shared/
+    ├── scripts/
+    ├── shared/
+    │   ├── errors/
+    │   ├── middlewares/
+    │   └── types/
+    └── tests/
 ```
 
-No complicated folder structures — only the files you need to build your API.
+The template keeps bootstrapping, domain modules, infrastructure adapters, and shared utilities separate so the project can grow without moving files around immediately.
 
 ## Available Scripts
 
@@ -148,7 +156,7 @@ Compiles TypeScript into `dist`.
 
 ### `npm start`
 
-Runs the production build with PM2.
+Runs the compiled production build from `dist`. If the app was generated with `--deploy pm2`, the generated start command uses PM2 runtime.
 
 ### `npm run lint`
 
