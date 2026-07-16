@@ -1,3 +1,70 @@
+## 0.0.3 (2026-07-16)
+
+Generate Express TS API 0.0.3 focuses on restructuring the project template, standardizing database configuration names, and adding GitHub community metadata.
+
+# Migrating from 0.0.2 to 0.0.3
+
+```bash
+npx generate-express-ts-api@0.0.3 my-api
+```
+
+Or upgrade an existing global/local install:
+
+```bash
+npm install -g generate-express-ts-api@0.0.3
+```
+
+#### 💅 Enhancement
+
+- Refactor source layout:
+  - `src/app.ts` -> `src/bootstrap/app.ts`
+  - `src/routes/index.ts` -> `src/bootstrap/routes.ts`
+  - Add `src/bootstrap/index.ts`
+  - Move `src/libs/*` -> `src/infrastructure/*`
+  - Move database entities/migrations -> `src/infrastructure/database/*`
+  - Move middlewares and shared types under `src/shared`
+- Rename route files for cleaner module conventions:
+  - `auth.routes.ts` -> `routes.ts`
+  - `users.routes.ts` -> `routes.ts`
+- Split module-level DTO/schema files:
+  - Add `src/modules/auth/auth.dto.ts`
+  - Rename `auth.validation.ts` -> `auth.schema.ts`
+  - Move `user.types.ts` -> `src/modules/users/users.dto.ts`
+- Refactor `AuthService` with dedicated `findByEmail` and `createUser` helpers.
+- Replace server listen `console.log` with `logger.info`.
+
+#### 🐛 Fix
+
+- Standardize database environment variables:
+  - Use `DB_MAIN_NAME`
+  - Use `DB_TEST_NAME`
+  - Remove legacy `DB_NAME_DEV`, `DB_NAME_TEST`, `DB_NAME_PROD` usage
+- Update Docker Compose:
+  - Move init script reference to `src/scripts/initdb.sh`
+  - Use `DB_MAIN_NAME` in Postgres healthcheck
+- Update MikroORM config and migration paths for the new `src/infrastructure/database` layout.
+- Update Sequelize CLI template to use the new database env names.
+- Update CLI feature-removal logic for auth, redis, and ORM paths.
+
+#### 📝 Documentation / Community
+
+- Add `.github/FUNDING.yml`.
+- Add GitHub issue templates:
+  - Bug report
+  - Proposal
+  - Question
+- Update `CHANGELOG.md` for version `0.0.2`.
+
+#### 🏠 Internal
+
+- Bump package version to `0.0.3`.
+- Update package lock files.
+- Update `.gitignore` and `tsconfig.json` for the new folder structure.
+
+#### Committers: 1
+
+- tonypham (@tonyphamvn)
+
 ## 0.0.2 (2026-07-13)
 
 Generate Express TS API 0.0.2 upgrades the template to Express 5, adds a `--deploy` runtime choice (Docker / PM2 / none), and refactors Socket.IO behind a dedicated Redis-backed module.
