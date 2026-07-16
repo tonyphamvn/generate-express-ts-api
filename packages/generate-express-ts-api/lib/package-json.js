@@ -54,6 +54,19 @@ function applyOrmScripts(packageJson, scripts) {
   };
 }
 
+function applyExpressTypeOverrides(packageJson) {
+  const overrides = {
+    ...(packageJson.overrides || {}),
+    '@types/express': '$@types/express',
+    '@types/express-serve-static-core': '$@types/express-serve-static-core',
+  };
+
+  return {
+    ...packageJson,
+    overrides,
+  };
+}
+
 export async function updatePackageJson(targetDir, options) {
   const packageJsonPath = path.join(targetDir, 'package.json');
   const packageJson = JSON.parse(await fs.readFile(packageJsonPath, 'utf8'));
@@ -74,6 +87,7 @@ export async function updatePackageJson(targetDir, options) {
 
   updated = applyOrmScripts(updated, ormChanges.scripts);
   updated = applyOrmScripts(updated, getDeployScripts(options.deploy));
+  updated = applyExpressTypeOverrides(updated);
 
   if (options.orm === 'mikroorm') {
     updated['mikro-orm'] = {
