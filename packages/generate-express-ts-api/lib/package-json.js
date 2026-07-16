@@ -60,10 +60,16 @@ function applyExpressTypeOverrides(packageJson) {
     '@types/express': '$@types/express',
     '@types/express-serve-static-core': '$@types/express-serve-static-core',
   };
+  const resolutions = {
+    ...(packageJson.resolutions || {}),
+    '@types/express': '^5.0.6',
+    '@types/express-serve-static-core': '^5.1.2',
+  };
 
   return {
     ...packageJson,
     overrides,
+    resolutions,
   };
 }
 

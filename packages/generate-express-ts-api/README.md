@@ -211,8 +211,8 @@ Issues and PRs are welcome in the [generate-express-ts-api](https://github.com/t
 3. Tag and push:
 
 ```sh
-git tag v0.0.3
-git push origin v0.0.3
+git tag v0.0.4
+git push origin v0.0.4
 ```
 
 The [Release](../../.github/workflows/release.yml) workflow will:
