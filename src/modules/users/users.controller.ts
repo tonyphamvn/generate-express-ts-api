@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import UsersService from './users.service';
-import { responseSuccess } from '@/shared/response';
 import { UnauthorizedError } from '@/shared/errors';
+import { responseSuccess } from '@/shared/response';
+import UsersService from './users.service';
 
 class UsersController {
   private usersService: UsersService;

@@ -10,6 +10,8 @@
     "start": "node dist/index.js",
     "dev": "npm run db:migrate && cross-env DEBUG=http,mail,express:* nodemon ./src/index.ts",
     "build": "tsc && tsc-alias",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
     "lint": "eslint --quiet --ext=ts src",
     "lint:fix": "eslint --fix --quiet --ext=ts src",
     "db:migrate": "mikro-orm migration:up",
@@ -42,14 +44,14 @@
     "http-errors": "^2.0.0",
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mime-types": "^3.0.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "pm2": "^7.0.4",
     "redis": "^4.7.0",
     "reflect-metadata": "^0.2.2",
     "socket.io": "^4.8.1",
-    "winston": "^3.17.0",
-    "mime-types": "^3.0.0"
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@mikro-orm/cli": "^6.4.13",
@@ -81,6 +83,12 @@
   },
   "overrides": {
     "ajv": "^8.18.0",
+    "eslint": {
+      "ajv": "^6.12.4"
+    },
+    "@eslint/eslintrc": {
+      "ajv": "^6.12.4"
+    },
     "figlet": "1.7.0",
     "@types/express": "$@types/express",
     "@types/express-serve-static-core": "$@types/express-serve-static-core"
