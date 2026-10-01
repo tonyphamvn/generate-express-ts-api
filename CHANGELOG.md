@@ -1,3 +1,48 @@
+## 0.0.6 (2026-10-01)
+
+Generate Express TS API 0.0.6 hardens ORM migration SQL escaping and bumps several transitive dependencies for security fixes.
+
+# Migrating from 0.0.5 to 0.0.6
+
+```bash
+npx generate-express-ts-api@0.0.6 my-api
+```
+
+Or upgrade an existing global/local install:
+
+```bash
+npm install -g generate-express-ts-api@0.0.6
+```
+
+#### 🐛 Fix
+
+- Escape backslashes and backticks when embedding SQL into generated TypeORM/MikroORM migration template literals.
+- Address GitHub code scanning alert for incomplete string escaping in ORM feature scaffolding.
+
+#### 🔒 Security
+
+- Bump `engine.io` to `6.6.11`.
+- Bump `fast-uri` to `3.1.8`.
+- Bump `brace-expansion` to `1.1.21`.
+- Bump `ip-address` to `10.7.2`.
+- Bump `joi` to `17.13.7`.
+- Bump `qs` to `6.16.0`.
+- Bump `js-yaml` and `pm2`.
+- Bump `socket.io-parser` to `4.2.7`.
+
+#### 📝 Documentation
+
+- Update release instructions to `v0.0.6`.
+
+#### 🏠 Internal
+
+- Bump package version to `0.0.6`.
+- Update package lock files.
+
+#### Committers: 1
+
+- tonypham (@tonyphamvn)
+
 ## 0.0.5 (2026-07-16)
 
 Generate Express TS API 0.0.5 fixes template download through `giget` and makes Express 5 type resolution work consistently across npm, Yarn, and pnpm.
