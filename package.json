@@ -91,6 +91,12 @@
     },
     "figlet": "1.7.0",
     "@types/express": "$@types/express",
-    "@types/express-serve-static-core": "$@types/express-serve-static-core"
+    "@types/express-serve-static-core": "$@types/express-serve-static-core",
+    "nodemon": {
+      "minimatch": "^11.0.1"
+    },
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
   }
 }
