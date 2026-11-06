@@ -64,4 +64,8 @@ export default {
   jwtSecret: process.env.JWT_SECRET,
   jwtExpiresIn: process.env.JWT_EXPIRES_IN,
   salt: process.env.SALT || '10',
+  authRateLimit: {
+    windowMs: parseInt(process.env.AUTH_RATE_LIMIT_WINDOW_MS || '900000', 10),
+    max: parseInt(process.env.AUTH_RATE_LIMIT_MAX || '10', 10),
+  },
 };

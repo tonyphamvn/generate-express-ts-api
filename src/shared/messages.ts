@@ -23,5 +23,6 @@ export default {
     invalidCode: 'Incorrect verification code',
     invalidAction: 'Not Supported',
     invalidToken: 'Token invalid',
+    tooManyRequests: 'Too many attempts. Please try again later',
   },
 };
